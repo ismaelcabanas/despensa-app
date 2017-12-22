@@ -1,0 +1,54 @@
+group 'cabanas.garcia.ismael.despensa'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    integrationtestCompile.extendsFrom testCompile
+    integrationtestRuntime.extendsFrom testRuntime
+    acceptancetestCompile.extendsFrom testCompile
+    acceptancetestRuntime.extendsFrom testRuntime
+}
+
+sourceSets {
+    integrationtest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+
+            // Use "java" if you don't use Scala as a programming language
+            srcDir file('src/integration-test/java')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+    acceptancetest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+
+            // Use "java" if you don't use Scala as a programming language
+            srcDir file('src/acceptance-test/java')
+        }
+        resources.srcDir file('src/acceptance-test/resources')
+    }
+}
+
+dependencies {
+    testCompile("junit:junit:4.12")
+    testCompile("org.assertj:assertj-core:3.6.1")
+}
