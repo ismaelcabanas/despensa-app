@@ -4,10 +4,7 @@ branches:
   - master
 jdk:
 - oraclejdk8
-install:
-- sudo pip install --upgrade pip
-- sudo start-docker-daemon
-- sudo pip install docker-compose==1.13.0
+
 script:
 - ./gradlew check test integrationTest jacoco
 before_cache:
