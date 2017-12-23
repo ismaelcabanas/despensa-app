@@ -25,4 +25,8 @@ hs_err_pid*
 *.iml
 .gradle
 .DS_Store
+.java-version
+
+build/
+out/
 
