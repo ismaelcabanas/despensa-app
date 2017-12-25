@@ -1,19 +1,18 @@
 package stepdefinitions;
 
-import cabanas.garcia.ismael.despensa.core.domain.model.Product;
-import cabanas.garcia.ismael.despensa.core.domain.model.Storeroom;
+import cabanas.garcia.ismael.despensa.core.domain.model.*;
 import cucumber.api.DataTable;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.assertj.core.api.Assertions;
 
-import java.util.List;
+import java.util.UUID;
 
 public class Steps {
 
     private Storeroom storeroom;
+    private ProductId productId;
 
     @Given("^the storeroom is empty$")
     public void theStoreroomIsEmpty() throws Throwable {
@@ -21,15 +20,16 @@ public class Steps {
     }
 
     @When("^I add (\\d+) (.+) product into storeroom$")
-    public void iAddProductIntoStoreroom(int quantity, String productName) throws Throwable {
-        Product product = Product.builder(productName).build();
-        storeroom.add(product, quantity);
+    public void iAddProductIntoStoreroom(int quantity, String name) throws Throwable {
+        ProductName productName = ProductName.builder(name).build();
+        ProductQuantity productQuantity = ProductQuantity.builder(quantity).build();
+        productId = ProductId.builder(UUID.randomUUID().toString()).build();
+        storeroom.add(productId, productName, productQuantity);
     }
 
-    @And("^the storeroom has (\\d+) items of (.+)")
-    public void theStoreroomHasItemOfProduct(int quantity, String productName) throws Throwable {
-        Product product = Product.builder(productName).build();
-        Assertions.assertThat(storeroom.count(product)).isEqualTo(quantity);
+    @Then("^the storeroom has (\\d+) (?:item|items) of (.+)")
+    public void theStoreroomHasItemOfProduct(int quantity, String name) throws Throwable {
+        Assertions.assertThat(storeroom.quantityOf(productId)).isEqualTo(quantity);
     }
 
     @Given("^the storeroom has$")
@@ -39,12 +39,10 @@ public class Steps {
                 .raw()
                 .stream()
                 .skip(1)
-                .forEach(rowData -> storeroom.add(Product.builder(rowData.get(0)).build(), Integer.parseInt(rowData.get(1))));
-    }
-
-    @Then("^the storeroom has (\\d+) products$")
-    public void theStoreroomHasProducts(int quantity) throws Throwable {
-        Assertions.assertThat(storeroom.size()).isEqualTo(quantity);
+                .forEach(rowData -> storeroom.add(
+                        ProductId.builder(rowData.get(0)).build(),
+                        ProductName.builder(rowData.get(1)).build(),
+                        ProductQuantity.builder(Integer.parseInt(rowData.get(2))).build()));
     }
 
 }
