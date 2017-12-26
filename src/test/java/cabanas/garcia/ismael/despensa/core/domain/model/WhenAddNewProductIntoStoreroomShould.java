@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class WhenAddNewProductIntoStoreroomShould {
+public final class WhenAddNewProductIntoStoreroomShould {
 
     @Test public void
     add_existence_of_product_into_storeroom() {
