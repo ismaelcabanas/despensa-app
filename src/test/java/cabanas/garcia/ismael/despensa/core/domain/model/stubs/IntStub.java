@@ -4,6 +4,6 @@ import org.apache.commons.lang3.RandomUtils;
 
 public class IntStub {
     public static int random() {
-        return RandomUtils.nextInt();
+        return RandomUtils.nextInt(1,100);
     }
 }

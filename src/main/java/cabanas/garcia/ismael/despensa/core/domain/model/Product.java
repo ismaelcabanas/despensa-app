@@ -5,10 +5,12 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class Product {
 
-    private final ProductQuantity productQuantity;
+    private final ProductId productId;
+    private ProductQuantity productQuantity;
     private final ProductName productName;
 
     private Product(Builder builder) {
+        this.productId = builder.productId;
         this.productName = builder.productName;
         this.productQuantity = builder.productQuantity;
     }
@@ -33,19 +35,33 @@ public class Product {
                 .toHashCode();
     }
 
-        public static Builder builder(ProductName productName, ProductQuantity quantity) {
-        return new Builder(productName, quantity);
+        public static Builder builder(ProductId productId, ProductName productName, ProductQuantity quantity) {
+        return new Builder(productId, productName, quantity);
     }
 
     public ProductQuantity quantity() {
         return productQuantity;
     }
 
+    public void add(ProductQuantity quantity) {
+        this.productQuantity = this.productQuantity.sum(quantity);
+    }
+
+    public ProductId id() {
+        return this.productId;
+    }
+
+    public ProductName name() {
+        return this.productName;
+    }
+
     public static class Builder {
         private final ProductName productName;
         private final ProductQuantity productQuantity;
+        private final ProductId productId;
 
-        public Builder(ProductName productName, ProductQuantity quantity) {
+        public Builder(ProductId productId, ProductName productName, ProductQuantity quantity) {
+            this.productId = productId;
             this.productName = productName;
             this.productQuantity = quantity;
         }

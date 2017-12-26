@@ -1,6 +1,5 @@
 package cabanas.garcia.ismael.despensa.core.domain.model;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class ProductQuantity {
@@ -19,7 +18,7 @@ public class ProductQuantity {
     }
 
     public ProductQuantity sum(ProductQuantity quantity) {
-        throw new NotImplementedException("Not implemented yet");
+        return builder(this.value + quantity.value()).build();
     }
 
     @Override
@@ -40,6 +39,13 @@ public class ProductQuantity {
         return new HashCodeBuilder(17, 37)
                 .append(value)
                 .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "ProductQuantity{" +
+                "value=" + value +
+                '}';
     }
 
     public static class Builder {

@@ -14,12 +14,20 @@ public class Storeroom {
     }
 
     public void add(ProductId productId, ProductName productName, ProductQuantity quantity) {
-        Product product = Product.builder(productName, quantity).build();
+        Product product = Product.builder(productId, productName, quantity).build();
         products.put(productId, product);
     }
 
     public ProductQuantity quantityOf(ProductId productId) {
         return products.get(productId).quantity();
+    }
+
+    public Product add(ProductId productId, ProductQuantity quantity) {
+        Product oldProduct = products.remove(productId);
+        oldProduct.add(quantity);
+        Product product = Product.builder(oldProduct.id(), oldProduct.name(), oldProduct.quantity()).build();
+        products.put(product.id(), product);
+        return product;
     }
 
     public static class Builder {

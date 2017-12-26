@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WhenAddNewProductIntoStoreroomShould {
 
     @Test public void
-    the_product_is_added_to_storeroom() {
+    add_existence_of_product_into_storeroom() {
         Storeroom storeroom = Storeroom.builder().build();
         ProductId productId = ProductIdStub.random();
         ProductName productName = ProductNameStub.random(20);
