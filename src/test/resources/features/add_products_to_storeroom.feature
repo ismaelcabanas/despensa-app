@@ -13,5 +13,5 @@ Feature: Add products into storeroom
       | id | name | quantity |
       | 1  | Milk | 2        |
       | 2  | Eggs | 6        |
-    When I add 1 Milk product into storeroom
+    When I add 1 Milk product more into storeroom
     Then the storeroom has 3 items of Milk

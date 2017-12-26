@@ -2,18 +2,27 @@ package stepdefinitions;
 
 import cabanas.garcia.ismael.despensa.core.domain.model.*;
 import cucumber.api.DataTable;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.it.Ma;
 import org.assertj.core.api.Assertions;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class Steps {
 
     private Storeroom storeroom;
     private ProductId productId;
 
+    private Map<String, String> mapProducts = new HashMap<>();
+        
     @Given("^the storeroom is empty$")
     public void theStoreroomIsEmpty() throws Throwable {
         storeroom = Storeroom.builder().build();
@@ -29,7 +38,7 @@ public class Steps {
 
     @Then("^the storeroom has (\\d+) (?:item|items) of (.+)")
     public void theStoreroomHasItemOfProduct(int quantity, String name) throws Throwable {
-        Assertions.assertThat(storeroom.quantityOf(productId)).isEqualTo(quantity);
+        assertThat(storeroom.quantityOf(productId)).isEqualTo(ProductQuantity.builder(quantity).build());
     }
 
     @Given("^the storeroom has$")
@@ -43,6 +52,18 @@ public class Steps {
                         ProductId.builder(rowData.get(0)).build(),
                         ProductName.builder(rowData.get(1)).build(),
                         ProductQuantity.builder(Integer.parseInt(rowData.get(2))).build()));
+
+        productsInStoreroom
+                .raw()
+                .stream()
+                .skip(1)
+                .forEach(rowData -> mapProducts.put(rowData.get(1), rowData.get(0)));
+
     }
 
+    @When("^I add (\\d+) (.*) product more into storeroom$")
+    public void iAddMilkProductMoreIntoStoreroom(int quantity, String name) throws Throwable {
+        productId = ProductId.builder(mapProducts.get(name)).build();
+        storeroom.add(productId, ProductQuantity.builder(quantity).build());
+    }
 }
