@@ -11,6 +11,8 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
+apply from: 'build-static-code-analysis.gradle'
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -55,4 +57,35 @@ dependencies {
     testCompile("org.assertj:assertj-core:3.6.1")
     testCompile("info.cukes:cucumber-java:1.2.5")
     testCompile("info.cukes:cucumber-junit:1.2.5")
+}
+
+// presentation of tests result
+tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/${name}")
+
+    testLogging {
+        // set options for log level LIFECYCLE
+        events "skipped", "failed", "standardOut"
+        showExceptions true
+        exceptionFormat "short"
+        showCauses true
+        showStackTraces true
+
+        // set options for log level DEBUG and INFO
+        debug {
+            events "started", "passed", "skipped", "failed", "standardOut", "standardError"
+            exceptionFormat "full"
+        }
+        info.events = debug.events
+        info.exceptionFormat = debug.exceptionFormat
+
+        afterSuite { desc, result ->
+            if (!desc.parent) { // will match the outermost suite
+                def output = "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+                def startItem = '|  ', endItem = '  |'
+                def repeatLength = startItem.length() + output.length() + endItem.length()
+                println('\n' + ('-' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('-' * repeatLength))
+            }
+        }
+    }
 }

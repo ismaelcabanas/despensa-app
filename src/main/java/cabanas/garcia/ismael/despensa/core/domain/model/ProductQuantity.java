@@ -23,9 +23,13 @@ public class ProductQuantity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o) {
+            return true;
+        }
 
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         ProductQuantity that = (ProductQuantity) o;
 
@@ -43,9 +47,10 @@ public class ProductQuantity {
 
     @Override
     public String toString() {
-        return "ProductQuantity{" +
-                "value=" + value +
-                '}';
+        return "ProductQuantity{"
+                + "value="
+                + value
+                + '}';
     }
 
     public static class Builder {

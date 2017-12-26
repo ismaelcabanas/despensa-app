@@ -1,16 +1,15 @@
 package stepdefinitions;
 
-import cabanas.garcia.ismael.despensa.core.domain.model.*;
+import cabanas.garcia.ismael.despensa.core.domain.model.ProductId;
+import cabanas.garcia.ismael.despensa.core.domain.model.ProductName;
+import cabanas.garcia.ismael.despensa.core.domain.model.ProductQuantity;
+import cabanas.garcia.ismael.despensa.core.domain.model.Storeroom;
 import cucumber.api.DataTable;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.api.java.it.Ma;
-import org.assertj.core.api.Assertions;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,14 +21,14 @@ public class Steps {
     private ProductId productId;
 
     private Map<String, String> mapProducts = new HashMap<>();
-        
+
     @Given("^the storeroom is empty$")
     public void theStoreroomIsEmpty() throws Throwable {
         storeroom = Storeroom.builder().build();
     }
 
     @When("^I add (\\d+) (.+) product into storeroom$")
-    public void iAddProductIntoStoreroom(int quantity, String name) throws Throwable {
+    public void addProductIntoStoreroom(int quantity, String name) throws Throwable {
         ProductName productName = ProductName.builder(name).build();
         ProductQuantity productQuantity = ProductQuantity.builder(quantity).build();
         productId = ProductId.builder(UUID.randomUUID().toString()).build();
@@ -62,7 +61,7 @@ public class Steps {
     }
 
     @When("^I add (\\d+) (.*) product more into storeroom$")
-    public void iAddMilkProductMoreIntoStoreroom(int quantity, String name) throws Throwable {
+    public void addMilkProductMoreIntoStoreroom(int quantity, String name) throws Throwable {
         productId = ProductId.builder(mapProducts.get(name)).build();
         storeroom.add(productId, ProductQuantity.builder(quantity).build());
     }

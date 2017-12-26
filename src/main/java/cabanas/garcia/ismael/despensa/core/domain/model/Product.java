@@ -17,9 +17,13 @@ public class Product {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o) {
+            return true;
+        }
 
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         Product product = (Product) o;
 
@@ -35,7 +39,7 @@ public class Product {
                 .toHashCode();
     }
 
-        public static Builder builder(ProductId productId, ProductName productName, ProductQuantity quantity) {
+    public static Builder builder(ProductId productId, ProductName productName, ProductQuantity quantity) {
         return new Builder(productId, productName, quantity);
     }
 

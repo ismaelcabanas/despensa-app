@@ -7,7 +7,7 @@ public class Storeroom {
 
     private Map<ProductId, Product> products = new HashMap<>();
 
-    private Storeroom(Builder builder){}
+    private Storeroom() { }
 
     public static Builder builder() {
         return new Builder();
@@ -18,10 +18,6 @@ public class Storeroom {
         products.put(productId, product);
     }
 
-    public ProductQuantity quantityOf(ProductId productId) {
-        return products.get(productId).quantity();
-    }
-
     public Product add(ProductId productId, ProductQuantity quantity) {
         Product oldProduct = products.remove(productId);
         oldProduct.add(quantity);
@@ -30,9 +26,13 @@ public class Storeroom {
         return product;
     }
 
+    public ProductQuantity quantityOf(ProductId productId) {
+        return products.get(productId).quantity();
+    }
+
     public static class Builder {
         public Storeroom build() {
-            return new Storeroom(this);
+            return new Storeroom();
         }
     }
 }
