@@ -18,7 +18,7 @@ public final class ProductIdShould {
 
     @Test public void
     not_be_equals() {
-        ProductId productId = ProductId.builder("uuid1").build();
+        ProductId productId = ProductId.builder("uuid3").build();
         ProductId otherProductId = ProductId.builder("uuid2").build();
 
         boolean actual = productId.equals(otherProductId);
@@ -26,12 +26,4 @@ public final class ProductIdShould {
         assertThat(actual).isFalse();
     }
 
-    @Test public void
-    not_be_equals_when_compare_with_null() {
-        ProductId productId = ProductId.builder("uuid1").build();
-
-        boolean actual = productId.equals(null);
-
-        assertThat(actual).isFalse();
-    }
 }

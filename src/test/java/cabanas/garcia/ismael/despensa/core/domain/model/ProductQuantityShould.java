@@ -6,8 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public final class ProductQuantityShould {
 
-    @Test
-    public void
+    @Test public void
     be_equals() {
         ProductQuantity productQuantity = ProductQuantity.builder(3).build();
         ProductQuantity anotherProductQuantity = ProductQuantity.builder(3).build();
@@ -23,15 +22,6 @@ public final class ProductQuantityShould {
         ProductQuantity anotherProductQuantity = ProductQuantity.builder(4).build();
 
         boolean actual = productQuantity.equals(anotherProductQuantity);
-
-        assertThat(actual).isFalse();
-    }
-
-    @Test public void
-    not_be_equals_when_compare_with_null() {
-        ProductQuantity productQuantity = ProductQuantity.builder(3).build();
-
-        boolean actual = productQuantity.equals(null);
 
         assertThat(actual).isFalse();
     }

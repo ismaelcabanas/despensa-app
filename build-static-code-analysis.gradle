@@ -20,6 +20,13 @@ checkstyle {
 jacoco {
     toolVersion = "0.7.7.201606060606"
 }
+
 jacocoTestReport {
+    group = "Reporting"
     executionData tasks.withType(Test)
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination "${buildDir}/reports/coverage"
+    }
 }
