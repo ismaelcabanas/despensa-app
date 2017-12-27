@@ -17,3 +17,6 @@ cache:
   - "$HOME/.m2"
   - "$HOME/.gradle/caches"
   - "$HOME/.gradle/wrapper"
+
+after_success:
+- ./gradlew jacocoTestReport coveralls
