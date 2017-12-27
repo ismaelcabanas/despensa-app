@@ -2,10 +2,8 @@ apply plugin: 'pmd'
 apply plugin: 'findbugs'
 apply plugin: 'checkstyle'
 apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
 
-plugins {
-    id 'com.github.kt3k.coveralls' version '2.6.3'
-}
 
 pmd {
     ruleSetFiles = files("$rootProject.projectDir/config/pmd/pmd-ruleset.xml")
