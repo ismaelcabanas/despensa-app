@@ -38,6 +38,10 @@ public class ProductId {
         return new Builder(uuid);
     }
 
+    public String value() {
+        return id;
+    }
+
     public static class Builder {
         private final String uuid;
 

@@ -38,6 +38,10 @@ public class ProductName {
         return new Builder(value);
     }
 
+    public String value() {
+        return value;
+    }
+
     public static class Builder {
         private final String value;
 
