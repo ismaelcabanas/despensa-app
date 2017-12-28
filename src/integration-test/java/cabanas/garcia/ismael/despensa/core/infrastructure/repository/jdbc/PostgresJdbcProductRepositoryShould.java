@@ -1,4 +1,4 @@
-package cabanas.garcia.ismael.despensa.core.infrastructure.repository;
+package cabanas.garcia.ismael.despensa.core.infrastructure.repository.jdbc;
 
 import cabanas.garcia.ismael.despensa.IntegrationTests;
 import cabanas.garcia.ismael.despensa.core.domain.model.Product;
@@ -28,7 +28,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Category(IntegrationTests.class)
-public class PostgresProductRepositoryShould {
+public class PostgresJdbcProductRepositoryShould {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -38,7 +38,7 @@ public class PostgresProductRepositoryShould {
     private static HikariConfig config = new HikariConfig();
     private static DataSource dataSource;
     private LightAccess lightAccess;
-    private PostgresProductRepository productRepository;
+    private PostgresJdbcProductRepository productRepository;
 
     @BeforeClass public static void
     before_all_tests() {
@@ -57,7 +57,7 @@ public class PostgresProductRepositoryShould {
     @Before public void
     before_each_test() {
         lightAccess = new LightAccess(dataSource);
-        productRepository = new PostgresProductRepository(dataSource);
+        productRepository = new PostgresJdbcProductRepository(dataSource);
     }
 
     @Test public void

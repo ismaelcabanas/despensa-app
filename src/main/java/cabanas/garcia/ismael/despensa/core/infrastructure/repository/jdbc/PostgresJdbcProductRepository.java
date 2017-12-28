@@ -1,4 +1,4 @@
-package cabanas.garcia.ismael.despensa.core.infrastructure.repository;
+package cabanas.garcia.ismael.despensa.core.infrastructure.repository.jdbc;
 
 import cabanas.garcia.ismael.despensa.core.domain.model.Product;
 import cabanas.garcia.ismael.despensa.core.domain.model.ProductId;
@@ -11,13 +11,13 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.UUID;
 
-public class PostgresProductRepository implements ProductRepository {
+public class PostgresJdbcProductRepository implements ProductRepository {
 
     private static final String INSERT_PRODUCT_SQL = "insert into products (p_id, p_name, p_quantity) values (?, ?, ?)";
 
     private final DataSource dataSource;
 
-    public PostgresProductRepository(DataSource dataSource) {
+    public PostgresJdbcProductRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
