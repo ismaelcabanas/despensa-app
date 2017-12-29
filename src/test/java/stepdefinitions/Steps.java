@@ -1,12 +1,12 @@
 package stepdefinitions;
 
-import cabanas.garcia.ismael.despensa.module.product.domain.model.Product;
-import cabanas.garcia.ismael.despensa.module.product.domain.model.ProductName;
-import cabanas.garcia.ismael.despensa.module.product.domain.model.ProductQuantity;
-import cabanas.garcia.ismael.despensa.module.product.domain.repository.InMemoryProductRepository;
-import cabanas.garcia.ismael.despensa.module.product.domain.repository.ProductRepository;
-import cabanas.garcia.ismael.despensa.module.product.domain.service.StoreroomService;
-import cabanas.garcia.ismael.despensa.module.product.domain.service.StoreroomServiceImpl;
+import cabanas.garcia.ismael.storeroom.module.product.domain.model.Product;
+import cabanas.garcia.ismael.storeroom.module.product.domain.model.ProductName;
+import cabanas.garcia.ismael.storeroom.module.product.domain.model.ProductQuantity;
+import cabanas.garcia.ismael.storeroom.module.product.domain.repository.InMemoryProductRepository;
+import cabanas.garcia.ismael.storeroom.module.product.domain.repository.ProductRepository;
+import cabanas.garcia.ismael.storeroom.module.product.domain.service.StoreroomService;
+import cabanas.garcia.ismael.storeroom.module.product.domain.service.StoreroomServiceImpl;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -36,8 +36,8 @@ public class Steps {
 
     @Then("^the storeroom has (\\d+) (?:item|items) of (.+)")
     public void theStoreroomHasItemOfProduct(int quantity, String name) throws Throwable {
-        Optional<Product> product = storeroomService.findProductByName(ProductName.builder(name).build());
-        assertThat(storeroomService.quantityOf(product.get().id())).isEqualTo(ProductQuantity.builder(quantity).build());
+        Optional<Product> product = productRepository.findByName(ProductName.builder(name).build());
+        assertThat(productRepository.findById(product.get().id()).get().quantity()).isEqualTo(ProductQuantity.builder(quantity).build());
     }
 
     @Given("^the storeroom has$")
@@ -54,7 +54,7 @@ public class Steps {
 
     @When("^I add (\\d+) (.*) product more into storeroom$")
     public void addProductMoreIntoStoreroom(int quantity, String name) throws Throwable {
-        Optional<Product> product = storeroomService.findProductByName(ProductName.builder(name).build());
+        Optional<Product> product = productRepository.findByName(ProductName.builder(name).build());
         product.ifPresent(product1 -> storeroomService.add(product1.id(), ProductQuantity.builder(quantity).build()));
     }
 }
