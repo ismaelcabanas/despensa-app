@@ -16,11 +16,15 @@ public class StoreroomServiceImpl implements StoreroomService {
         this.productRepository = productRepository;
     }
 
-    public void add(ProductId productId, ProductName productName, ProductQuantity quantity) {
+    @Override
+    public Product add(ProductName productName, ProductQuantity quantity) {
+        ProductId productId = productRepository.nextIdentity();
         Product product = Product.builder(productId, productName, quantity).build();
         productRepository.insert(product);
+        return product;
     }
 
+    @Override
     public void add(ProductId productId, ProductQuantity quantity) {
         Optional<Product> oldProduct = productRepository.findById(productId);
         oldProduct.ifPresent(product -> {
@@ -30,8 +34,14 @@ public class StoreroomServiceImpl implements StoreroomService {
 
     }
 
+    @Override
     public ProductQuantity quantityOf(ProductId productId) {
         return productRepository.findById(productId).get().quantity();
+    }
+
+    @Override
+    public Optional<Product> findProductByName(ProductName name) {
+        return productRepository.findByName(name);
     }
 
 }

@@ -3,11 +3,13 @@ package cabanas.garcia.ismael.despensa.core.domain.model;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.util.UUID;
+
 public class ProductId {
     private final String id;
 
     private ProductId(Builder builder) {
-        this.id = builder.uuid;
+        this.id = builder.id;
     }
 
     @Override
@@ -34,19 +36,29 @@ public class ProductId {
                 .toHashCode();
     }
 
-    public static Builder builder(String uuid) {
-        return new Builder(uuid);
-    }
 
     public String value() {
         return id;
     }
 
-    public static class Builder {
-        private final String uuid;
+    public static Builder builder() {
+        return new Builder();
+    }
 
-        public Builder(String uuid) {
-            this.uuid = uuid;
+    public static Builder builder(String id) {
+        return new Builder(id);
+    }
+
+    public static class Builder {
+
+        private final String id;
+
+        public Builder(String id) {
+            this.id = id;
+        }
+
+        public Builder() {
+            this.id = UUID.randomUUID().toString();
         }
 
         public ProductId build() {

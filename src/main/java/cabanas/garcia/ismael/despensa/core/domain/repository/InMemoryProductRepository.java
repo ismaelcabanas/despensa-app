@@ -2,6 +2,7 @@ package cabanas.garcia.ismael.despensa.core.domain.repository;
 
 import cabanas.garcia.ismael.despensa.core.domain.model.Product;
 import cabanas.garcia.ismael.despensa.core.domain.model.ProductId;
+import cabanas.garcia.ismael.despensa.core.domain.model.ProductName;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +25,19 @@ public class InMemoryProductRepository implements ProductRepository {
     @Override
     public void update(Product product) {
         save(product);
+    }
+
+    @Override
+    public ProductId nextIdentity() {
+        return ProductId.builder().build();
+    }
+
+    @Override
+    public Optional<Product> findByName(ProductName productName) {
+        return products.entrySet().stream()
+                .filter(entry -> productName.equals(entry.getValue().name()))
+                .map(map -> map.getValue())
+                .findFirst();
     }
 
     private Product save(Product product) {

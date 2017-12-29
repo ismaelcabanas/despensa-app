@@ -18,8 +18,8 @@ public final class ProductIdShould {
 
     @Test public void
     not_be_equals() {
-        ProductId productId = ProductId.builder("uuid3").build();
-        ProductId otherProductId = ProductId.builder("uuid2").build();
+        ProductId productId = ProductId.builder().build();
+        ProductId otherProductId = ProductId.builder().build();
 
         boolean actual = productId.equals(otherProductId);
 

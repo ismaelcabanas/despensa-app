@@ -1,6 +1,5 @@
 package cabanas.garcia.ismael.despensa.core.domain.model;
 
-import cabanas.garcia.ismael.despensa.core.domain.model.stubs.ProductIdStub;
 import cabanas.garcia.ismael.despensa.core.domain.model.stubs.ProductNameStub;
 import cabanas.garcia.ismael.despensa.core.domain.model.stubs.ProductQuantityStub;
 import cabanas.garcia.ismael.despensa.core.domain.repository.ProductRepository;
@@ -15,15 +14,14 @@ public final class WhenAddNewProductIntoStoreroomShould {
 
     @Test public void
     add_existence_of_product_into_storeroom() {
-        ProductId productId = ProductIdStub.random();
         ProductName productName = ProductNameStub.random(20);
         ProductQuantity productQuantity = ProductQuantityStub.random();
         ProductRepository productRepositoryStub = ProductRepositoryStub.builder().build();
         StoreroomService storeroomService = new StoreroomServiceImpl(productRepositoryStub);
 
-        storeroomService.add(productId, productName, productQuantity);
+        Product product = storeroomService.add(productName, productQuantity);
 
-        assertThat(storeroomService.quantityOf(productId)).isEqualTo(productQuantity);
+        assertThat(storeroomService.quantityOf(product.id())).isEqualTo(productQuantity);
     }
 
 }
