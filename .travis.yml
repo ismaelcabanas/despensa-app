@@ -7,9 +7,11 @@ jdk:
 
 sudo: required
 
+services:
+- docker
+
 install:
 - sudo pip install --upgrade pip
-- sudo start-docker-daemon
 - sudo pip install docker-compose==1.13.0
 
 script:
