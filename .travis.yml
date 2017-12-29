@@ -5,6 +5,8 @@ branches:
 jdk:
 - oraclejdk8
 
+sudo: required
+
 install:
 - sudo pip install --upgrade pip
 - sudo start-docker-daemon
