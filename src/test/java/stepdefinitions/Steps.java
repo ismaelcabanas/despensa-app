@@ -1,12 +1,12 @@
 package stepdefinitions;
 
-import cabanas.garcia.ismael.despensa.core.domain.model.Product;
-import cabanas.garcia.ismael.despensa.core.domain.model.ProductName;
-import cabanas.garcia.ismael.despensa.core.domain.model.ProductQuantity;
-import cabanas.garcia.ismael.despensa.core.domain.repository.InMemoryProductRepository;
-import cabanas.garcia.ismael.despensa.core.domain.repository.ProductRepository;
-import cabanas.garcia.ismael.despensa.core.domain.service.StoreroomService;
-import cabanas.garcia.ismael.despensa.core.domain.service.StoreroomServiceImpl;
+import cabanas.garcia.ismael.despensa.module.product.domain.model.Product;
+import cabanas.garcia.ismael.despensa.module.product.domain.model.ProductName;
+import cabanas.garcia.ismael.despensa.module.product.domain.model.ProductQuantity;
+import cabanas.garcia.ismael.despensa.module.product.domain.repository.InMemoryProductRepository;
+import cabanas.garcia.ismael.despensa.module.product.domain.repository.ProductRepository;
+import cabanas.garcia.ismael.despensa.module.product.domain.service.StoreroomService;
+import cabanas.garcia.ismael.despensa.module.product.domain.service.StoreroomServiceImpl;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
