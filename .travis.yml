@@ -5,6 +5,11 @@ branches:
 jdk:
 - oraclejdk8
 
+install:
+- sudo pip install --upgrade pip
+- sudo start-docker-daemon
+- sudo pip install docker-compose==1.13.0
+
 script:
 - ./gradlew clean build integrationTest
 
@@ -19,4 +24,6 @@ cache:
   - "$HOME/.gradle/wrapper"
 
 after_success:
+- reports-publisher
 - ./gradlew jacocoTestReport coveralls
+after_failure: reports-publisher
