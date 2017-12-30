@@ -6,7 +6,6 @@ import cabanas.garcia.ismael.storeroom.module.product.domain.model.ProductName;
 import cabanas.garcia.ismael.storeroom.module.product.domain.model.ProductQuantity;
 import cabanas.garcia.ismael.storeroom.module.product.domain.repository.InMemoryProductRepository;
 import cabanas.garcia.ismael.storeroom.module.product.domain.repository.ProductRepository;
-import cucumber.api.DataTable;
 import cucumber.api.java8.En;
 
 import java.util.Optional;
@@ -15,25 +14,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AddNewProductToStoreroomStepDefs implements En {
 
-    private ProductRepository productRepository;
     private AddNewProductToStoreroom addNewProductToStoreroom;
 
     public AddNewProductToStoreroomStepDefs() {
 
-        Before(() -> {
-            productRepository = new InMemoryProductRepository();
-        });
+        final ProductRepository productRepository = new InMemoryProductRepository();
 
-        Given("^the storeroom has$", (DataTable productsInStoreroom) -> {
+        Given("^the storeroom$", () -> {
             addNewProductToStoreroom = new AddNewProductToStoreroom(productRepository);
-            productsInStoreroom
-                    .raw()
-                    .stream()
-                    .skip(1)
-                    .forEach(rowData -> addProductToStoreroom(
-                            Integer.parseInt(rowData.get(1)),
-                            rowData.get(0)
-                    ));
         });
 
         When("^I add (\\d+) items of new (.*) product into storeroom$", (Integer quantity, String productName) -> {

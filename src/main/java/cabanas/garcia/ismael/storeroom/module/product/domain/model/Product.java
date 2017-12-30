@@ -47,8 +47,8 @@ public class Product {
         return productQuantity;
     }
 
-    public void add(ProductQuantity quantity) {
-        this.productQuantity = this.productQuantity.sum(quantity);
+    public Product add(ProductQuantity quantity) {
+        return Product.builder(productId, productName, productQuantity.sum(quantity)).build();
     }
 
     public ProductId id() {
