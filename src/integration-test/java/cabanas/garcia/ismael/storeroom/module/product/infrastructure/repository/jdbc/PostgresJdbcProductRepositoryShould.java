@@ -10,6 +10,7 @@ import cabanas.garcia.ismael.storeroom.module.product.domain.model.stubs.Product
 import cabanas.garcia.ismael.storeroom.module.product.domain.model.stubs.ProductQuantityStub;
 import cabanas.garcia.ismael.storeroom.module.product.domain.model.stubs.ProductStub;
 import com.codurance.lightaccess.LightAccess;
+import com.codurance.lightaccess.executables.SQLCommand;
 import com.codurance.lightaccess.executables.SQLQuery;
 import com.codurance.lightaccess.mapping.LAResultSet;
 import com.zaxxer.hikari.HikariConfig;
@@ -33,6 +34,7 @@ public class PostgresJdbcProductRepositoryShould {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    private static final String DELETE_ALL_PRODUCTS = "delete from products";
     private static final String SELECT_ALL_PRODUCTS_SQL = "select * from products";
 
     private static HikariConfig config = new HikariConfig();
@@ -58,6 +60,7 @@ public class PostgresJdbcProductRepositoryShould {
     before_each_test() {
         lightAccess = new LightAccess(dataSource);
         productRepository = new PostgresJdbcProductRepository(dataSource);
+        lightAccess.executeCommand(deleteAllProducts());
     }
 
     @Test public void
@@ -80,6 +83,24 @@ public class PostgresJdbcProductRepositoryShould {
                 .build();
         thrown.expect(JdbcException.class);
         productRepository.insert(productOne);
+    }
+
+    @Test public void
+    update_products() {
+        Product productOne = ProductStub.random();
+        productRepository.insert(productOne);
+        Product productOneWithQuantityAdded = productOne.add(ProductQuantityStub.random());
+
+        productRepository.update(productOneWithQuantityAdded);
+
+        List<Product> products = lightAccess.executeQuery(retrieveAllProducts());
+        assertThat(products).containsExactly(productOneWithQuantityAdded);
+        assertThat(products.get(0).quantity()).isEqualTo(productOneWithQuantityAdded.quantity());
+    }
+
+    private SQLCommand deleteAllProducts() {
+        return conn -> conn.prepareStatement(DELETE_ALL_PRODUCTS)
+                .executeUpdate();
     }
 
     private SQLQuery<List<Product>> retrieveAllProducts() {

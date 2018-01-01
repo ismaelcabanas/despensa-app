@@ -16,7 +16,8 @@ import java.util.UUID;
 public class PostgresJdbcProductRepository implements ProductRepository {
 
     private static final String INSERT_PRODUCT_SQL = "insert into products (p_id, p_name, p_quantity) values (?, ?, ?)";
-    public static final String NOT_IMPLEMENTED_YET = "Not implemented yet";
+    private static final String NOT_IMPLEMENTED_YET = "Not implemented yet";
+    private static final String UPDATE_PRODUCT_SQL = "update products set p_name = ?, p_quantity = ? where p_id = ?";
 
     private final DataSource dataSource;
 
@@ -47,7 +48,18 @@ public class PostgresJdbcProductRepository implements ProductRepository {
 
     @Override
     public void update(Product product) {
-        throw new NotImplementedException(NOT_IMPLEMENTED_YET);
+        try (Connection conn = dataSource.getConnection()) {
+            try (PreparedStatement preparedStatement = conn.prepareStatement(UPDATE_PRODUCT_SQL)) {
+                preparedStatement.setString(1, product.name().value());
+                preparedStatement.setInt(2, product.quantity().value());
+                preparedStatement.setObject(3, UUID.fromString(product.id().value()));
+                preparedStatement.executeUpdate();
+            } catch (SQLException e) {
+                throw new JdbcException(e);
+            }
+        } catch (SQLException e) {
+            throw new JdbcException(e);
+        }
     }
 
     @Override
