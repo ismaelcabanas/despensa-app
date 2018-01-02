@@ -86,6 +86,7 @@ dependencies {
     testCompile("info.cukes:cucumber-java8:1.2.5")
     testCompile("info.cukes:cucumber-junit:1.2.5")
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("com.jayway.jsonpath:json-path:2.0.0")
 }
 
 // presentation of tests result

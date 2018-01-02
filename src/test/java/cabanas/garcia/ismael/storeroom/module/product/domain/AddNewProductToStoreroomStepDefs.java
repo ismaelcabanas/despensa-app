@@ -37,7 +37,7 @@ public class AddNewProductToStoreroomStepDefs implements En {
     }
 
     private void addProductToStoreroom(Integer quantity, String productName) {
-        addNewProductToStoreroom.add(ProductName.builder(productName).build(),
-                ProductQuantity.builder(quantity).build());
+        addNewProductToStoreroom.add(productName,
+                quantity);
     }
 }

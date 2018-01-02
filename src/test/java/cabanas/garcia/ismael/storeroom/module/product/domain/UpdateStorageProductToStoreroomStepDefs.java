@@ -28,8 +28,8 @@ public class UpdateStorageProductToStoreroomStepDefs implements En {
                     .raw()
                     .stream()
                     .skip(1)
-                    .forEach(rowData -> addNewProductToStoreroom.add(ProductName.builder(rowData.get(0)).build(),
-                            ProductQuantity.builder(Integer.parseInt(rowData.get(1))).build()
+                    .forEach(rowData -> addNewProductToStoreroom.add(rowData.get(0),
+                            Integer.parseInt(rowData.get(1))
                     ));
         });
 
