@@ -5,6 +5,7 @@ import cabanas.garcia.ismael.storeroom.module.product.domain.model.ProductId;
 import cabanas.garcia.ismael.storeroom.module.product.infrastructure.controller.request.ProductRequestDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,7 +22,7 @@ public class CreateProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> create(ProductRequestDTO productRequestDTO) {
+    public ResponseEntity<Void> create(@RequestBody  ProductRequestDTO productRequestDTO) {
         ProductId productId = addNewProductToStoreroom.add(productRequestDTO.getName(), productRequestDTO.getQuantity());
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(
                 "/{id}").buildAndExpand(productId.value()).toUri();
