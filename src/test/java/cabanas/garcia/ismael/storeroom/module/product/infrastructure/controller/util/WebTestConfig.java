@@ -15,7 +15,7 @@ public final class WebTestConfig {
     /**
      * Prevents instantiation.
      */
-    private WebTestConfig() {}
+    private WebTestConfig() { }
 
     /**
      *

@@ -25,19 +25,15 @@ public final class CreateProductControllerShould {
 
     private MockMvc mockMvc;
 
-    private AddNewProductToStoreroom addNewProductToStoreroom;
-
     private static Pattern createProductUriPattern =
             Pattern.compile("^(http)://localhost/api/v1/products/*[-a-zA-Z0-9+&@#/%=~_|]");
 
-    private CreateProductController controller;
-
     @Before public void
     setUp() {
-        addNewProductToStoreroom = AddNewProductToStoreroomStub.builder()
+        AddNewProductToStoreroom addNewProductToStoreroom = AddNewProductToStoreroomStub.builder()
                 .whenProductIsAdded(ProductIdStub.random())
                 .build();
-        controller = new CreateProductController(addNewProductToStoreroom);
+        CreateProductController controller = new CreateProductController(addNewProductToStoreroom);
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .setMessageConverters(objectMapperHttpMessageConverter())
                 .build();
