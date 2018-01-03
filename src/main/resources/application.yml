@@ -1,0 +1,24 @@
+docker:
+  host: "${DOCKER_IP:localhost}"
+
+spring:
+  application:
+    name: storeroom-app
+  main:
+    banner-mode: "OFF"
+  datasource:
+    url: "jdbc:postgresql://${postgres.host}:${postgres.port}/postgres?currentSchema=storeroom"
+    username: postgres
+    password: postgres
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximumPoolSize: 30
+      poolName: storeroom
+      minimumIdle: 5
+
+server:
+  port: 8000
+
+flyway:
+    locations: classpath:db/migration, classpath:db/dataset
+    schemas: storeroom
