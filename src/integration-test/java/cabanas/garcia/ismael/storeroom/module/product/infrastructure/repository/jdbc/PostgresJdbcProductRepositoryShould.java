@@ -98,6 +98,14 @@ public class PostgresJdbcProductRepositoryShould {
         assertThat(products.get(0).quantity()).isEqualTo(productOneWithQuantityAdded.quantity());
     }
 
+    @Test public void
+    next_identity() {
+
+        ProductId productId = productRepository.nextIdentity();
+
+        assertThat(productId).isNotNull();
+    }
+
     private SQLCommand deleteAllProducts() {
         return conn -> conn.prepareStatement(DELETE_ALL_PRODUCTS)
                 .executeUpdate();
