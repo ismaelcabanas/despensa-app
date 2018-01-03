@@ -1,7 +1,7 @@
 Feature: Add storage of products in storeroom
-  In order to add more storage of existent products into storeroom
+  In order to update the storage of existent products of my storeroom
   As an user
-  I want to add more quantity of a existent product
+  I want to add more units of a existent product
 
   Scenario: add more items of existent product into storeroom
     Given the storeroom has

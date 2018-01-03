@@ -1,5 +1,5 @@
 Feature: Add new products into storeroom
-  In order to fill the storeroom
+  In order to know what products I have in my storeroom
   As an user
   I want to add new products into storeroom
 
