@@ -64,7 +64,7 @@ public class PostgresJdbcProductRepository implements ProductRepository {
 
     @Override
     public ProductId nextIdentity() {
-        throw new NotImplementedException(NOT_IMPLEMENTED_YET);
+        return ProductId.builder(UUID.randomUUID().toString()).build();
     }
 
     @Override
