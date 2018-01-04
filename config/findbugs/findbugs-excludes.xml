@@ -12,4 +12,8 @@
         <Source name="~.*\.groovy" />
         <Bug code="UPM" />
     </Match>
+    <Match>
+        <!-- Ignore test entities as these will often have unused things -->
+        <Package name="~cabanas\.garcia\.ismael\.storeroom\.bdd\.steps.*"/>
+    </Match>
 </FindBugsFilter>

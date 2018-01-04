@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @Category(IntegrationTests.class)
-public class ApplicationShoud {
+public class ApplicationShould {
 
     @Test public void
     context_load() {

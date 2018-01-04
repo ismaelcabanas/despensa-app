@@ -86,8 +86,10 @@ dependencies {
     testCompile("org.mockito:mockito-core:2.10.0")
     testCompile("info.cukes:cucumber-java8:1.2.5")
     testCompile("info.cukes:cucumber-junit:1.2.5")
+    testCompile("info.cukes:cucumber-spring:1.2.4")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("com.jayway.jsonpath:json-path:2.0.0")
+    testCompile("io.rest-assured:rest-assured:3.0.6")
 }
 
 // presentation of tests result
@@ -124,6 +126,7 @@ tasks.withType(Test) {
 task integrationTest(type: Test) {
     testClassesDir = sourceSets.integrationtest.output.classesDir
     classpath = sourceSets.integrationtest.runtimeClasspath
+    outputs.upToDateWhen { false }
 
     // This is not needed, but I like to see which tests have run
     testLogging {
@@ -131,11 +134,13 @@ task integrationTest(type: Test) {
     }
 }
 
+/*
 integrationTest {
     useJUnit {
         includeCategories 'cabanas.garcia.ismael.storeroom.IntegrationTests'
     }
 }
+*/
 
 dockerCompose.isRequiredBy(integrationTest)
 
@@ -151,5 +156,5 @@ integrationTest.doFirst {
     systemProperty 'postgres.port', dockerCompose.servicesInfos.postgresql.'postgresql_1'.port
 }
 
-
+check.dependsOn integrationTest
 integrationTest.mustRunAfter test
