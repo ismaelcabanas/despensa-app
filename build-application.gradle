@@ -1,0 +1,26 @@
+apply plugin: 'application'
+
+/*
+ You can add here additional profiles comma separated to run on AWS,
+ environment variables will be set during runtime of the microservice
+*/
+def runtimeProfiles = '$ENVIRONMENT'
+
+
+// Needed to replace the environment variable escape char '\', see this for details:
+// https://issues.gradle.org/browse/GRADLE-3084
+
+startScripts {
+    doFirst {
+        applicationDefaultJvmArgs = ["-Djava.awt.headless=false",
+                                     "-Dspring.profiles.active=${runtimeProfiles}"]
+    }
+    doLast {
+        unixScript.text = unixScript.text.replace('\\\$', '\$')
+    }
+}
+
+run {
+    actions = []
+}
+run.dependsOn bootRun

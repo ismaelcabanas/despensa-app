@@ -1,5 +1,5 @@
 group 'cabanas.garcia.ismael.despensa'
-version '1.0-SNAPSHOT'
+version '0.0.1-SNAPSHOT'
 
 buildscript {
     ext {
@@ -23,6 +23,7 @@ apply plugin: 'idea'
 apply plugin: 'docker-compose'
 apply plugin: 'org.springframework.boot'
 
+apply from: 'build-application.gradle'
 apply from: 'build-static-code-analysis.gradle'
 
 sourceCompatibility = 1.8
@@ -156,5 +157,13 @@ integrationTest.doFirst {
     systemProperty 'postgres.port', dockerCompose.servicesInfos.postgresql.'postgresql_1'.port
 }
 
-check.dependsOn integrationTest
 integrationTest.mustRunAfter test
+
+bootRun.doFirst {
+    systemProperty "spring.profiles.active", "dev"
+}
+
+// This disables the repackage that spring boot does, which is not a fully standard jar
+bootRepackage {
+    enabled = false
+}
