@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: "jdbc:postgresql://storeroomdbinstance.cmqcr48aaxs5.eu-west-1.rds.amazonaws.com:5432/storeroomdb?currentSchema=storeroom"
+    username: storeroom
+    password: albin261975
+
+flyway:
+    locations: classpath:db/migration, classpath:db/dataset
+    schemas: storeroom

@@ -160,7 +160,7 @@ integrationTest.doFirst {
 integrationTest.mustRunAfter test
 
 bootRun.doFirst {
-    systemProperty "spring.profiles.active", "dev"
+    systemProperty "spring.profiles.active", "pre"
 }
 
 // This disables the repackage that spring boot does, which is not a fully standard jar

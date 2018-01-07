@@ -9,3 +9,6 @@ spring:
       maximumPoolSize: 30
       poolName: storeroom
       minimumIdle: 5
+
+server:
+  port: 8100

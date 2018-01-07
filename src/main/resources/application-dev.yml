@@ -7,9 +7,6 @@ spring:
     username: postgres
     password: postgres
 
-server:
-  port: 8100
-
 flyway:
     locations: classpath:db/migration, classpath:db/dataset
     schemas: storeroom
